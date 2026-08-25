@@ -6,7 +6,7 @@ import CandidatesView from './components/CandidatesView.jsx';
 import StudentFormModal from './components/StudentFormModal.jsx';
 import ProjectFormModal from './components/ProjectFormModal.jsx';
 import { fetchProjects, fetchStudents, createStudent, createProject, resetDatabase } from './services/api.js';
-import { Sparkles, Users, FolderKanban, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Sparkles, Users, FolderKanban, CheckCircle2, AlertCircle, TrendingUp, ShieldCheck, Zap } from 'lucide-react';
 
 export default function App() {
   const [theme, setTheme] = useState('dark');
@@ -62,7 +62,7 @@ export default function App() {
   // Handlers
   const handleCreateStudent = async (studentData) => {
     const res = await createStudent(studentData);
-    showToast(`Candidate "${res.data.name}" added successfully!`);
+    showToast(`Candidate "${res.data.name}" registered successfully!`);
     await loadData();
   };
 
@@ -110,36 +110,56 @@ export default function App() {
           <div className="alert alert-error">
             <AlertCircle size={18} />
             <div>
-              <strong>Backend Connection Issue:</strong> {error}
+              <strong>Backend Connection Notice:</strong> {error}
               <div style={{ fontSize: '0.8rem', marginTop: '0.25rem' }}>
-                Ensure the backend is running at <code>http://localhost:5000</code>.
+                Ensure the backend server is running at <code>http://localhost:5000</code>.
               </div>
             </div>
           </div>
         )}
 
-        {/* Hero Banner */}
+        {/* Hero SaaS Banner */}
         {activeTab === 'matches' && (
           <div className="hero-banner">
             <div>
-              <h1 className="hero-title">Intelligent Hackathon Team Formation</h1>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', color: 'var(--brand-500)', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.4rem' }}>
+                <Zap size={14} /> AI-Powered Hackathon Matchmaker
+              </div>
+              <h1 className="hero-title">Assemble Your Dream Hackathon Team</h1>
               <p className="hero-subtitle">
-                Discover complementary teammates with transparent deterministic compatibility scoring
-                (Skills, Availability, Interests, Experience) paired with AI-driven synergy rationales.
+                Discover complementary teammates using deterministic 4-pillar compatibility scoring
+                (Skills, Availability, Domain Interests, Experience) paired with explainable AI synergy rationales.
               </p>
+
+              {/* Quick Metrics Strip */}
+              <div className="metrics-bar">
+                <div className="metric-item">
+                  <Users size={15} style={{ color: 'var(--brand-500)' }} />
+                  <span>Pool: <strong className="metric-value">{students.length} Candidates</strong></span>
+                </div>
+                <div className="metric-item">
+                  <FolderKanban size={15} style={{ color: '#a855f7' }} />
+                  <span>Active: <strong className="metric-value">{projects.length} Projects</strong></span>
+                </div>
+                <div className="metric-item">
+                  <ShieldCheck size={15} style={{ color: 'var(--score-emerald)' }} />
+                  <span>Matching: <strong className="metric-value">Deterministic + AI</strong></span>
+                </div>
+              </div>
             </div>
+
             <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
               <button
                 className="btn btn-secondary"
                 onClick={() => setIsStudentModalOpen(true)}
               >
-                <Users size={16} /> + Candidate
+                <Users size={15} /> + Candidate
               </button>
               <button
                 className="btn btn-primary"
                 onClick={() => setIsProjectModalOpen(true)}
               >
-                <FolderKanban size={16} /> + Post Project
+                <FolderKanban size={15} /> + Post Project
               </button>
             </div>
           </div>
@@ -175,12 +195,12 @@ export default function App() {
         )}
 
         {loading && (
-          <div className="card" style={{ textAlign: 'center', padding: '4rem 1rem' }}>
-            <div style={{ fontSize: '1.2rem', fontWeight: 600, color: 'var(--accent-primary)', marginBottom: '0.5rem' }}>
-              Connecting to ProjectMatch Core...
+          <div className="card" style={{ textAlign: 'center', padding: '4rem 1.5rem' }}>
+            <div style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--brand-500)', marginBottom: '0.5rem' }}>
+              Connecting to ProjectMatch Core Engine...
             </div>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
-              Loading hackathon rosters and projects.
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+              Loading participants, teams, and active hackathon tracks.
             </p>
           </div>
         )}

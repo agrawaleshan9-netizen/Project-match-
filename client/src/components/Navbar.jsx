@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layers, RotateCcw, Plus, Moon, Sun, Users, FolderKanban } from 'lucide-react';
+import { Layers, RotateCcw, Plus, Moon, Sun, Users, FolderKanban, Sparkles } from 'lucide-react';
 
 export default function Navbar({
   activeTab,
@@ -14,25 +14,16 @@ export default function Navbar({
     <header className="navbar">
       <div className="navbar-inner">
         {/* Brand */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <a href="#" className="brand-logo" onClick={() => onSelectTab('matches')}>
-            <div style={{
-              width: 32,
-              height: 32,
-              borderRadius: 8,
-              background: 'var(--accent-gradient)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'white'
-            }}>
-              <Layers size={18} />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+          <a href="#" className="brand-logo" onClick={(e) => { e.preventDefault(); onSelectTab('matches'); }}>
+            <div className="brand-icon">
+              <Sparkles size={18} />
             </div>
             ProjectMatch
-            <span className="brand-badge">MVP</span>
+            <span className="brand-badge">HACKATHON MVP</span>
           </a>
 
-          {/* Nav Tabs */}
+          {/* Navigation Tabs */}
           <nav className="nav-tabs">
             <button
               className={`nav-tab-btn ${activeTab === 'matches' ? 'active' : ''}`}
@@ -60,9 +51,9 @@ export default function Navbar({
           <button
             className="btn btn-secondary btn-sm"
             onClick={onResetSeed}
-            title="Reset database with default demo profiles"
+            title="Reset database to default hackathon demo profiles"
           >
-            <RotateCcw size={14} /> Reseed Data
+            <RotateCcw size={13} /> Reseed Data
           </button>
 
           <button
@@ -70,11 +61,11 @@ export default function Navbar({
             onClick={onToggleTheme}
             title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} mode`}
           >
-            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
+            {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
           </button>
 
           <button className="btn btn-primary btn-sm" onClick={onOpenCreateProject}>
-            <Plus size={14} /> Project
+            <Plus size={14} /> Post Project
           </button>
         </div>
       </div>

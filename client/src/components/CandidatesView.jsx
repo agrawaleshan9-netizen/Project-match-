@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Clock, MapPin, Search } from 'lucide-react';
+import { Plus, Clock, Globe2, Search, UserCheck } from 'lucide-react';
 
 const ROLES = ['ALL', 'Frontend', 'Backend', 'Fullstack', 'AI/ML', 'UI/UX Designer', 'Product/Domain'];
 
@@ -18,10 +18,10 @@ export default function CandidatesView({ students = [], onOpenCreateStudent }) {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.75rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.5rem' }}>Participant Roster</h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', marginTop: '0.2rem' }}>
+          <h2 style={{ fontSize: '1.65rem' }}>Participant Roster</h2>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '0.25rem' }}>
             Explore available candidates and talent across all hackathon tracks.
           </p>
         </div>
@@ -31,9 +31,9 @@ export default function CandidatesView({ students = [], onOpenCreateStudent }) {
       </div>
 
       {/* Filter & Search Toolbar */}
-      <div className="card" style={{ marginBottom: '1.25rem', padding: '0.875rem' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem' }}>
-          <div className="nav-tabs" style={{ overflowX: 'auto' }}>
+      <div className="card" style={{ marginBottom: '1.5rem', padding: '1rem 1.25rem' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+          <div className="nav-tabs" style={{ overflowX: 'auto', maxWidth: '100%' }}>
             {ROLES.map((role) => (
               <button
                 key={role}
@@ -45,13 +45,13 @@ export default function CandidatesView({ students = [], onOpenCreateStudent }) {
             ))}
           </div>
 
-          <div style={{ position: 'relative', minWidth: '220px' }}>
-            <Search size={14} style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
+          <div style={{ position: 'relative', minWidth: '240px' }}>
+            <Search size={15} style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
             <input
               type="text"
               className="form-input"
-              style={{ paddingLeft: '2.2rem', fontSize: '0.825rem' }}
-              placeholder="Search skill, name, domain..."
+              style={{ paddingLeft: '2.4rem', fontSize: '0.85rem' }}
+              placeholder="Search by skill, name, bio..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -60,34 +60,36 @@ export default function CandidatesView({ students = [], onOpenCreateStudent }) {
       </div>
 
       {/* Candidates Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '1.25rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '1.5rem' }}>
         {filteredStudents.map((student) => {
           const initials = student.avatar || (student.name || 'U').slice(0, 2).toUpperCase();
 
           return (
-            <div key={student.id} className="card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div key={student.id} className="card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', transition: 'all 0.2s ease' }}>
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-                  <div className="avatar-circle" style={{ width: 42, height: 42, fontSize: '0.9rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.85rem' }}>
+                  <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: '0.95rem' }}>
                     {initials}
                   </div>
                   <div>
-                    <h3 style={{ fontSize: '1.1rem' }}>{student.name}</h3>
-                    <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.2rem' }}>
-                      <span className="pill pill-role matched">{student.primaryRole}</span>
-                      <span className="pill pill-exp">{student.experienceLevel}</span>
+                    <h3 style={{ fontSize: '1.15rem' }}>{student.name}</h3>
+                    <div style={{ display: 'flex', gap: '0.4rem', marginTop: '0.25rem' }}>
+                      <span className="pill pill-role matched" style={{ fontSize: '0.725rem' }}>
+                        <UserCheck size={11} /> {student.primaryRole}
+                      </span>
+                      <span className="pill pill-exp" style={{ fontSize: '0.725rem' }}>{student.experienceLevel}</span>
                     </div>
                   </div>
                 </div>
 
                 {student.shortBio && (
-                  <p style={{ fontSize: '0.825rem', color: 'var(--text-secondary)', marginBottom: '0.75rem', lineHeight: 1.4 }}>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '0.85rem', lineHeight: 1.45, fontStyle: 'italic' }}>
                     "{student.shortBio}"
                   </p>
                 )}
 
-                <div style={{ marginBottom: '0.75rem' }}>
-                  <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.35rem' }}>
+                <div style={{ marginBottom: '0.85rem' }}>
+                  <div style={{ fontSize: '0.725rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
                     Skills & Proficiency:
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
@@ -100,9 +102,9 @@ export default function CandidatesView({ students = [], onOpenCreateStudent }) {
                 </div>
 
                 {student.interests && student.interests.length > 0 && (
-                  <div style={{ marginBottom: '0.75rem' }}>
-                    <div style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.35rem' }}>
-                      Interests:
+                  <div style={{ marginBottom: '0.85rem' }}>
+                    <div style={{ fontSize: '0.725rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
+                      Domain Interests:
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
                       {student.interests.map((interest, i) => (
@@ -115,12 +117,12 @@ export default function CandidatesView({ students = [], onOpenCreateStudent }) {
                 )}
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.75rem', borderTop: '1px solid var(--border-subtle)', fontSize: '0.775rem', color: 'var(--text-secondary)' }}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                  <Clock size={12} /> {student.availabilityHours}h/wk
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.85rem', borderTop: '1px solid var(--border-subtle)', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <Clock size={13} /> {student.availabilityHours}h/wk committed
                 </span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                  <MapPin size={12} /> UTC {student.timezoneOffset >= 0 ? `+${student.timezoneOffset}` : student.timezoneOffset}
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <Globe2 size={13} /> UTC {student.timezoneOffset >= 0 ? `+${student.timezoneOffset}` : student.timezoneOffset}
                 </span>
               </div>
             </div>
