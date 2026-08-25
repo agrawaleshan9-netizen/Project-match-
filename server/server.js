@@ -36,11 +36,18 @@ app.get(['/', '/health', '/api/health'], (req, res) => {
   });
 });
 
-// API Routes
+// API Routes (supports both /api/path and /path in serverless environments)
 app.use('/api/students', studentRoutes);
+app.use('/students', studentRoutes);
+
 app.use('/api/projects', projectRoutes);
+app.use('/projects', projectRoutes);
+
 app.use('/api/projects', matchRoutes); // Handles /api/projects/:id/matches
+app.use('/projects', matchRoutes);
+
 app.use('/api/seed', seedRoutes);
+app.use('/seed', seedRoutes);
 
 // 404 Handler for undefined API routes
 app.use('/api/*', (req, res) => {
@@ -61,9 +68,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start Server if run directly
-if (process.env.NODE_ENV !== 'test' && !process.argv[1]?.includes('testMatching')) {
-  app.listen(PORT, () => {
+// Start Server if run directly (bypassed in Vercel serverless functions)
+if (process.env.NODE_ENV !== 'test' && !process.argv[1]?.includes('testMatching') && !process.env.VERCEL) {
+  app.listen(PORT, HOST, () => {
     console.log(`🚀 ProjectMatch Backend running at http://localhost:${PORT}`);
     console.log(`📡 Health check available at http://localhost:${PORT}/api/health`);
     console.log(`🤖 Gemini AI Mode: ${process.env.GEMINI_API_KEY ? 'Active (Gemini Flash)' : 'Offline / Resilient Fallback'}`);

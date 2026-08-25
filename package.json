@@ -1,0 +1,17 @@
+{
+  "name": "projectmatch",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "cd client && npm install && npm run build",
+    "start": "cd server && npm start",
+    "test": "cd server && npm run test:matching"
+  },
+  "dependencies": {
+    "@google/genai": "^2.18.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  }
+}

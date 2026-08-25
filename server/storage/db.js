@@ -6,7 +6,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Paths for persistent data and fallback seed data
-const DATA_DIR = path.resolve(__dirname, '../data');
+const DATA_DIR = process.env.VERCEL
+  ? path.resolve('/tmp/data')
+  : path.resolve(__dirname, '../data');
 const DB_FILE = path.resolve(DATA_DIR, 'db.json');
 const SEED_FILE = path.resolve(__dirname, 'seedData.json');
 
@@ -81,16 +83,20 @@ export function getDb() {
  * @param {object} data - { students: Student[], projects: Project[] }
  */
 export function saveDb(data) {
-  if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-  }
-  
-  const payload = {
-    students: Array.isArray(data.students) ? data.students : [],
-    projects: Array.isArray(data.projects) ? data.projects : []
-  };
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    
+    const payload = {
+      students: Array.isArray(data.students) ? data.students : [],
+      projects: Array.isArray(data.projects) ? data.projects : []
+    };
 
-  fs.writeFileSync(DB_FILE, JSON.stringify(payload, null, 2), 'utf-8');
+    fs.writeFileSync(DB_FILE, JSON.stringify(payload, null, 2), 'utf-8');
+  } catch (err) {
+    console.warn('[DB] Could not write to disk in current environment:', err.message);
+  }
 }
 
 /**
