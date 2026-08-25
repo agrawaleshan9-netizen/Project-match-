@@ -22,10 +22,34 @@ const EXPERIENCE_SCORES = {
 };
 
 /**
- * Normalizes a skill/interest string for fuzzy comparison.
+ * Normalizes a string for comparison.
  */
 function normalizeString(str) {
   return (str || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+/**
+ * Checks whether two skill names match accurately without false positives.
+ */
+function skillsMatch(skillA, skillB) {
+  const normA = (skillA || '').toLowerCase().trim();
+  const normB = (skillB || '').toLowerCase().trim();
+
+  if (normA === normB) return true;
+
+  const cleanA = normA.replace(/[^a-z0-9]/g, '');
+  const cleanB = normB.replace(/[^a-z0-9]/g, '');
+  if (cleanA === cleanB) return true;
+
+  // Only allow substring matching if the shorter term has at least 3 characters
+  // e.g., "react" in "reactjs", "tailwind" in "tailwind css", but not "go" in "mongodb"
+  if (cleanA.length >= 3 && cleanB.length >= 3) {
+    if (cleanA.includes(cleanB) || cleanB.includes(cleanA)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /**
@@ -45,11 +69,7 @@ function calculateSkillScore(student, project) {
   let totalProficiencyEarned = 0;
 
   for (const reqSkill of projectSkills) {
-    const normReq = normalizeString(reqSkill);
-    const foundSkill = studentSkills.find((s) => {
-      const normStudentSkill = normalizeString(s.name);
-      return normStudentSkill === normReq || normStudentSkill.includes(normReq) || normReq.includes(normStudentSkill);
-    });
+    const foundSkill = studentSkills.find((s) => skillsMatch(s.name, reqSkill));
 
     if (foundSkill) {
       matchedSkills.push(foundSkill.name);
