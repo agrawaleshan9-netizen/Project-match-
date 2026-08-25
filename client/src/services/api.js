@@ -1,22 +1,31 @@
 /**
  * API Service for ProjectMatch Client
- * Features transparent fallback from Vite proxy (/api) to direct backend (localhost:5000 / 127.0.0.1:5000)
- * with robust error handling and safe JSON parsing.
+ * Supports configurable VITE_API_URL for production cloud deployments
+ * while preserving local Vite proxy (/api) and localhost direct fallbacks for development.
  */
 
-const API_BASE = '/api';
+// Allow configuring production backend URL via Vite environment variable
+const ENV_API_URL = (import.meta.env.VITE_API_URL || '').trim().replace(/\/+$/, '');
+const CONFIGURED_API_BASE = ENV_API_URL
+  ? (ENV_API_URL.endsWith('/api') ? ENV_API_URL : `${ENV_API_URL}/api`)
+  : null;
+
+const API_BASE = CONFIGURED_API_BASE || '/api';
 const DIRECT_BACKEND_URL = 'http://localhost:5000/api';
 const DIRECT_BACKEND_IP_URL = 'http://127.0.0.1:5000/api';
 
 /**
- * Executes a resilient API request trying proxy first, then direct origins if network fails.
+ * Executes an API request trying configured URL / proxy first,
+ * with resilient direct localhost fallbacks in local development.
  */
 async function apiRequest(endpoint, options = {}) {
-  const urlsToTry = [
-    `${API_BASE}${endpoint}`,
-    `${DIRECT_BACKEND_URL}${endpoint}`,
-    `${DIRECT_BACKEND_IP_URL}${endpoint}`
-  ];
+  const urlsToTry = [`${API_BASE}${endpoint}`];
+
+  // In local development without an explicit remote VITE_API_URL, add localhost fallbacks
+  if (!CONFIGURED_API_BASE) {
+    urlsToTry.push(`${DIRECT_BACKEND_URL}${endpoint}`);
+    urlsToTry.push(`${DIRECT_BACKEND_IP_URL}${endpoint}`);
+  }
 
   let lastError = null;
 
@@ -40,11 +49,11 @@ async function apiRequest(endpoint, options = {}) {
       return data;
     } catch (err) {
       lastError = err;
-      // If the server responded with an application-level HTTP error (4xx/5xx), do not retry
+      // If the server responded with a formal HTTP error (4xx/5xx), do not retry
       if (err.message && (err.message.startsWith('HTTP error') || err.message.includes('not found') || err.message.includes('Validation'))) {
         throw err;
       }
-      // If it's a network error (e.g. "Failed to fetch"), attempt next fallback URL
+      // If it's a network error (e.g. "Failed to fetch"), attempt next fallback URL if available
     }
   }
 
