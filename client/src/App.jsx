@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar.jsx';
+import LandingView from './components/LandingView.jsx';
+import OnboardingModal from './components/OnboardingModal.jsx';
+import SignInModal from './components/SignInModal.jsx';
 import MatchDashboard from './components/MatchDashboard.jsx';
 import ProjectsView from './components/ProjectsView.jsx';
 import CandidatesView from './components/CandidatesView.jsx';
@@ -10,7 +13,10 @@ import { Sparkles, Users, FolderKanban, CheckCircle2, AlertCircle, TrendingUp, S
 
 export default function App() {
   const [theme, setTheme] = useState('dark');
-  const [activeTab, setActiveTab] = useState('matches');
+  const [currentView, setCurrentView] = useState('landing'); // 'landing' | 'dashboard'
+  const [activeTab, setActiveTab] = useState('matches'); // 'matches' | 'projects' | 'candidates'
+  const [currentUser, setCurrentUser] = useState(null);
+
   const [projects, setProjects] = useState([]);
   const [students, setStudents] = useState([]);
   const [selectedProjectId, setSelectedProjectId] = useState(null);
@@ -19,6 +25,8 @@ export default function App() {
   const [notification, setNotification] = useState(null);
 
   // Modals
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
+  const [isSignInOpen, setIsSignInOpen] = useState(false);
   const [isStudentModalOpen, setIsStudentModalOpen] = useState(false);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
 
@@ -27,7 +35,7 @@ export default function App() {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  // Load initial projects and students
+  // Load initial projects and students from backend API
   const loadData = async () => {
     try {
       setLoading(true);
@@ -59,7 +67,31 @@ export default function App() {
     setTimeout(() => setNotification(null), 4000);
   };
 
-  // Handlers
+  // Onboarding Profile Creation (Get Started flow)
+  const handleOnboardingComplete = async (studentData) => {
+    const res = await createStudent(studentData);
+    setCurrentUser(res.data);
+    showToast(`Welcome aboard, ${res.data.name}! Your profile is ready.`);
+    await loadData();
+    setCurrentView('dashboard');
+    setActiveTab('matches');
+  };
+
+  // Sign In Persona Selection
+  const handleSelectPersona = (student) => {
+    setCurrentUser(student);
+    showToast(`Exploring dashboard as ${student.name} (${student.primaryRole})`);
+    setCurrentView('dashboard');
+    setActiveTab('matches');
+  };
+
+  const handleContinueAsGuest = () => {
+    setCurrentUser(null);
+    setCurrentView('dashboard');
+    setActiveTab('matches');
+  };
+
+  // Quick Modal Handlers inside Dashboard
   const handleCreateStudent = async (studentData) => {
     const res = await createStudent(studentData);
     showToast(`Candidate "${res.data.name}" registered successfully!`);
@@ -84,6 +116,36 @@ export default function App() {
     }
   };
 
+  // 1. Render Landing View
+  if (currentView === 'landing') {
+    return (
+      <div className="landing-wrapper">
+        <LandingView
+          onGetStarted={() => setIsOnboardingOpen(true)}
+          onSignIn={() => setIsSignInOpen(true)}
+          onDirectExplore={handleContinueAsGuest}
+        />
+
+        {/* Onboarding Profile Setup Modal */}
+        <OnboardingModal
+          isOpen={isOnboardingOpen}
+          onClose={() => setIsOnboardingOpen(false)}
+          onCompleteProfile={handleOnboardingComplete}
+        />
+
+        {/* Demo Sign In Persona Modal */}
+        <SignInModal
+          isOpen={isSignInOpen}
+          onClose={() => setIsSignInOpen(false)}
+          students={students}
+          onSelectPersona={handleSelectPersona}
+          onContinueAsGuest={handleContinueAsGuest}
+        />
+      </div>
+    );
+  }
+
+  // 2. Render Main Application Dashboard
   return (
     <div className="app-container">
       <Navbar
@@ -94,6 +156,8 @@ export default function App() {
         onResetSeed={handleResetSeed}
         theme={theme}
         onToggleTheme={toggleTheme}
+        currentUser={currentUser}
+        onGoToLanding={() => setCurrentView('landing')}
       />
 
       <main className="main-content">
@@ -118,7 +182,7 @@ export default function App() {
           </div>
         )}
 
-        {/* Hero SaaS Banner */}
+        {/* Hero Dashboard Banner */}
         {activeTab === 'matches' && (
           <div className="hero-banner">
             <div>
@@ -206,7 +270,7 @@ export default function App() {
         )}
       </main>
 
-      {/* Modals */}
+      {/* Quick Modals */}
       <StudentFormModal
         isOpen={isStudentModalOpen}
         onClose={() => setIsStudentModalOpen(false)}
