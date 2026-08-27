@@ -125,6 +125,9 @@ export function addStudent(studentData) {
     availabilityHours: Number(studentData.availabilityHours) || 10,
     timezoneOffset: Number(studentData.timezoneOffset) || 0,
     shortBio: studentData.shortBio || '',
+    githubUrl: studentData.githubUrl || '',
+    portfolioUrl: studentData.portfolioUrl || '',
+    assessmentStatus: studentData.assessmentStatus || 'Not Completed',
     createdAt: new Date().toISOString()
   };
 

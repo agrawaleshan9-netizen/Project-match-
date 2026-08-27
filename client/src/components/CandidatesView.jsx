@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Plus, Clock, Globe2, Search, UserCheck } from 'lucide-react';
+import SkillVerificationSection from './SkillVerificationSection.jsx';
 
 const ROLES = ['ALL', 'Frontend', 'Backend', 'Fullstack', 'AI/ML', 'UI/UX Designer', 'Product/Domain'];
 
@@ -115,6 +116,9 @@ export default function CandidatesView({ students = [], onOpenCreateStudent }) {
                     </div>
                   </div>
                 )}
+
+                {/* Skill Verification Section */}
+                <SkillVerificationSection student={student} compact={true} />
               </div>
 
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.85rem', borderTop: '1px solid var(--border-subtle)', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Sparkles, Users, Clock, AlertCircle, ChevronDown, ChevronUp, Layers, CheckCircle2, ShieldAlert } from 'lucide-react';
 import CandidateCard from './CandidateCard.jsx';
+import ProjectSkillGap from './ProjectSkillGap.jsx';
+import TeamBalance from './TeamBalance.jsx';
 import { fetchProjectMatches } from '../services/api.js';
 
 export default function MatchDashboard({ projects = [], selectedProjectId, onSelectProject, onOpenCreateProject, onOpenCreateStudent }) {
@@ -78,7 +80,7 @@ export default function MatchDashboard({ projects = [], selectedProjectId, onSel
 
       {/* Active Project Details Card */}
       {activeProject && (
-        <div className="card" style={{ marginBottom: '2rem', background: 'linear-gradient(180deg, var(--bg-card-subtle) 0%, var(--bg-card) 100%)', border: '1px solid var(--border-hover)' }}>
+        <div className="card" style={{ marginBottom: '1.75rem', background: 'linear-gradient(180deg, var(--bg-card-subtle) 0%, var(--bg-card) 100%)', border: '1px solid var(--border-hover)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
@@ -129,6 +131,22 @@ export default function MatchDashboard({ projects = [], selectedProjectId, onSel
               </div>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* FEATURE 1 & 2: Project Skill Gap and Team Balance Analysis Sections */}
+      {activeProject && !loading && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '2rem' }}>
+          <ProjectSkillGap
+            project={activeProject}
+            skillGapData={matchData?.skillGap}
+            matches={matches}
+          />
+          <TeamBalance
+            project={activeProject}
+            teamBalanceData={matchData?.teamBalance}
+            matches={matches}
+          />
         </div>
       )}
 

@@ -1,7 +1,8 @@
 import React from 'react';
-import { Sparkles, Clock, Globe2, Award, CheckCircle2, ShieldCheck, UserCheck } from 'lucide-react';
+import { Sparkles, Clock, Globe2, Award, UserCheck } from 'lucide-react';
 import ScoreMeter from './ScoreMeter.jsx';
 import ScoreBreakdownCard from './ScoreBreakdownCard.jsx';
+import SkillVerificationSection from './SkillVerificationSection.jsx';
 
 export default function CandidateCard({ match, rank = 1 }) {
   const {
@@ -63,48 +64,99 @@ export default function CandidateCard({ match, rank = 1 }) {
         </p>
       )}
 
-      {/* Matched Skills & Open Gaps */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', margin: '0.75rem 0' }}>
-        {matchedSkills.length > 0 && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-              Matched Skills:
-            </span>
-            {matchedSkills.map((skill, i) => (
-              <span key={i} className="pill pill-skill matched">
-                <CheckCircle2 size={12} /> {skill}
-              </span>
-            ))}
-          </div>
-        )}
+      {/* WHY THIS MATCH? Section */}
+      <div className="why-match-section">
+        <div className="why-match-header">
+          <Sparkles size={15} style={{ color: 'var(--brand-500)' }} />
+          <span>WHY THIS MATCH?</span>
+        </div>
 
-        {missingSkillsSupplied.length > 0 && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-              Fills Project Gaps:
-            </span>
-            {missingSkillsSupplied.map((gap, i) => (
-              <span key={i} className="pill pill-gap">
-                <ShieldCheck size={12} /> {gap}
+        <div className="why-match-grid">
+          {/* 1. Skills Matched */}
+          <div className="why-match-item">
+            <div className="why-match-title">Skills Matched:</div>
+            <div className="why-match-content">
+              {matchedSkills && matchedSkills.length > 0 ? (
+                <div className="why-match-list">
+                  {matchedSkills.map((skill, i) => (
+                    <div key={i} className="why-match-entry">
+                      <span className="why-match-check">✓</span>
+                      <span>{skill}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="why-match-entry subtle">
+                  <span>— Foundational match</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* 2. Missing Skill Filled */}
+          <div className="why-match-item">
+            <div className="why-match-title">Missing Skill Filled:</div>
+            <div className="why-match-content">
+              {missingSkillsSupplied && missingSkillsSupplied.length > 0 ? (
+                <div className="why-match-list">
+                  {missingSkillsSupplied.map((gap, i) => (
+                    <div key={i} className="why-match-entry">
+                      <span className="why-match-target">🎯</span>
+                      <span>{gap}</span>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="why-match-entry">
+                  <span className="why-match-target">🎯</span>
+                  <span>{roleCovered || student.primaryRole}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* 3. Availability */}
+          <div className="why-match-item">
+            <div className="why-match-title">Availability:</div>
+            <div className="why-match-content">
+              <div className="why-match-entry">
+                <span className="why-match-check">✓</span>
+                <span>Available for the project timeline ({student.availabilityHours}h/wk)</span>
+              </div>
+            </div>
+          </div>
+
+          {/* 4. Experience */}
+          <div className="why-match-item">
+            <div className="why-match-title">Experience:</div>
+            <div className="why-match-content">
+              <div className="why-match-entry">
+                <span className="why-match-check">✓</span>
+                <span>{student.experienceLevel || 'Intermediate'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 5. AI Explanation */}
+        {aiExplanation && (
+          <div className="why-match-ai">
+            <div className="why-match-ai-header">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <Sparkles size={13} style={{ color: 'var(--brand-500)' }} />
+                <span className="why-match-title" style={{ marginBottom: 0 }}>AI Explanation:</span>
+              </div>
+              <span className="why-match-ai-tag">
+                {explanationSource === 'ai' ? '🤖 Gemini AI' : '⚡ Deterministic Explainer'}
               </span>
-            ))}
+            </div>
+            <p className="why-match-ai-quote">"{aiExplanation}"</p>
           </div>
         )}
       </div>
 
-      {/* AI Match Rationale Highlight Box */}
-      {aiExplanation && (
-        <div className="ai-box">
-          <div className="ai-box-header">
-            <Sparkles size={14} style={{ color: 'var(--brand-500)' }} />
-            <span>Why this candidate matches</span>
-            <span style={{ marginLeft: 'auto', fontSize: '0.65rem', opacity: 0.8, textTransform: 'none', fontWeight: 500 }}>
-              {explanationSource === 'ai' ? '🤖 Gemini AI Matchmaker' : '⚡ Deterministic Explainer'}
-            </span>
-          </div>
-          <p className="ai-box-text">{aiExplanation}</p>
-        </div>
-      )}
+      {/* Skill Verification Section */}
+      <SkillVerificationSection student={student} compact={false} />
 
       {/* 4-Pillar Score Breakdown */}
       <ScoreBreakdownCard breakdown={scoreBreakdown} />

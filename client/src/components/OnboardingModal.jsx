@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { X, Sparkles, AlertCircle, ArrowRight, UserCheck, Clock, MapPin, Briefcase } from 'lucide-react';
+import { X, Sparkles, AlertCircle, ArrowRight, ShieldCheck } from 'lucide-react';
 
 const ROLE_OPTIONS = ['Frontend', 'Backend', 'Fullstack', 'AI/ML', 'UI/UX Designer', 'Product/Domain'];
 const EXPERIENCE_OPTIONS = ['Beginner', 'Intermediate', 'Advanced'];
+const ASSESSMENT_OPTIONS = ['Not Completed', 'Completed'];
 
 export default function OnboardingModal({ isOpen, onClose, onCompleteProfile }) {
   const [name, setName] = useState('');
@@ -14,6 +15,9 @@ export default function OnboardingModal({ isOpen, onClose, onCompleteProfile }) 
   const [availabilityHours, setAvailabilityHours] = useState(20);
   const [timezoneOffset, setTimezoneOffset] = useState(-5);
   const [shortBio, setShortBio] = useState('');
+  const [githubUrl, setGithubUrl] = useState('');
+  const [portfolioUrl, setPortfolioUrl] = useState('');
+  const [assessmentStatus, setAssessmentStatus] = useState('Not Completed');
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
@@ -60,7 +64,10 @@ export default function OnboardingModal({ isOpen, onClose, onCompleteProfile }) 
         interests: parsedInterests,
         availabilityHours: Number(availabilityHours) || 15,
         timezoneOffset: Number(timezoneOffset) || 0,
-        shortBio: shortBio.trim() || `Passionate ${primaryRole} looking to collaborate on high-impact projects.`
+        shortBio: shortBio.trim() || `Passionate ${primaryRole} looking to collaborate on high-impact projects.`,
+        githubUrl: githubUrl.trim(),
+        portfolioUrl: portfolioUrl.trim(),
+        assessmentStatus
       };
 
       await onCompleteProfile(studentPayload);
@@ -193,6 +200,50 @@ export default function OnboardingModal({ isOpen, onClose, onCompleteProfile }) 
                 value={timezoneOffset}
                 onChange={(e) => setTimezoneOffset(e.target.value)}
               />
+            </div>
+          </div>
+
+          {/* Skill Verification Details Section */}
+          <div style={{ background: 'var(--bg-input)', padding: '1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border-subtle)', marginBottom: '1.15rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.75rem', color: '#a5b4fc', fontSize: '0.8rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              <ShieldCheck size={14} /> Skill Verification Signals
+            </div>
+
+            <div className="form-row">
+              <div className="form-group" style={{ marginBottom: '0.75rem' }}>
+                <label className="form-label" style={{ fontSize: '0.8rem' }}>GitHub Profile URL</label>
+                <input
+                  type="url"
+                  className="form-input"
+                  value={githubUrl}
+                  onChange={(e) => setGithubUrl(e.target.value)}
+                  placeholder="https://github.com/username"
+                />
+              </div>
+
+              <div className="form-group" style={{ marginBottom: '0.75rem' }}>
+                <label className="form-label" style={{ fontSize: '0.8rem' }}>Portfolio / Website URL</label>
+                <input
+                  type="url"
+                  className="form-input"
+                  value={portfolioUrl}
+                  onChange={(e) => setPortfolioUrl(e.target.value)}
+                  placeholder="https://myportfolio.dev"
+                />
+              </div>
+            </div>
+
+            <div className="form-group" style={{ marginBottom: 0 }}>
+              <label className="form-label" style={{ fontSize: '0.8rem' }}>Skill Assessment Status</label>
+              <select
+                className="form-input"
+                value={assessmentStatus}
+                onChange={(e) => setAssessmentStatus(e.target.value)}
+              >
+                {ASSESSMENT_OPTIONS.map((opt) => (
+                  <option key={opt} value={opt}>{opt}</option>
+                ))}
+              </select>
             </div>
           </div>
 

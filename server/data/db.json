@@ -36,6 +36,9 @@
       "availabilityHours": 25,
       "timezoneOffset": -5,
       "shortBio": "MS in CS focusing on biomedical imaging. Built multiple diagnostic deep learning models and looking to partner with frontend & design talent.",
+      "githubUrl": "https://github.com/sarahchen-ai",
+      "portfolioUrl": "https://sarahchen.bio",
+      "assessmentStatus": "Completed",
       "createdAt": "2026-08-20T10:00:00.000Z"
     },
     {
@@ -74,6 +77,9 @@
       "availabilityHours": 20,
       "timezoneOffset": -5,
       "shortBio": "Product designer with 2 hackathon wins. Love crafting accessible, high-polish user interfaces and clinical dashboard workflows.",
+      "githubUrl": "https://github.com/leomartinez-design",
+      "portfolioUrl": "https://leomartinez.portfolio.io",
+      "assessmentStatus": "Completed",
       "createdAt": "2026-08-20T10:30:00.000Z"
     },
     {
@@ -112,6 +118,9 @@
       "availabilityHours": 20,
       "timezoneOffset": -4,
       "shortBio": "Backend specialist with strong experience in high-throughput APIs, database optimization, and cloud infrastructure.",
+      "githubUrl": "https://github.com/marcusvance",
+      "portfolioUrl": "",
+      "assessmentStatus": "Completed",
       "createdAt": "2026-08-20T11:00:00.000Z"
     },
     {
@@ -150,6 +159,9 @@
       "availabilityHours": 22,
       "timezoneOffset": -5,
       "shortBio": "Frontend engineer passionate about snappy, responsive web applications with micro-interactions and clean state architecture.",
+      "githubUrl": "https://github.com/amina-frontend",
+      "portfolioUrl": "https://amina.design",
+      "assessmentStatus": "Completed",
       "createdAt": "2026-08-20T11:30:00.000Z"
     },
     {
@@ -188,6 +200,9 @@
       "availabilityHours": 18,
       "timezoneOffset": -5,
       "shortBio": "Full-stack developer excited about green tech and building sustainability dashboards. Quick prototyper.",
+      "githubUrl": "https://github.com/rohang",
+      "portfolioUrl": "https://rohang.me",
+      "assessmentStatus": "Completed",
       "createdAt": "2026-08-20T12:00:00.000Z"
     },
     {
@@ -226,6 +241,9 @@
       "availabilityHours": 15,
       "timezoneOffset": -4,
       "shortBio": "Economics & business double major with experience in startup pitch decks and regulatory research. Great at structuring value propositions.",
+      "githubUrl": "",
+      "portfolioUrl": "https://elenarostova.notion.site/portfolio",
+      "assessmentStatus": "Not Completed",
       "createdAt": "2026-08-20T12:30:00.000Z"
     },
     {
@@ -264,6 +282,9 @@
       "availabilityHours": 20,
       "timezoneOffset": -8,
       "shortBio": "Undergrad researcher working on Retrieval-Augmented Generation (RAG) and LLM evaluation benchmarks for educational tools.",
+      "githubUrl": "https://github.com/davidkim-ml",
+      "portfolioUrl": "",
+      "assessmentStatus": "Completed",
       "createdAt": "2026-08-20T13:00:00.000Z"
     },
     {
@@ -298,6 +319,9 @@
       "availabilityHours": 12,
       "timezoneOffset": -5,
       "shortBio": "Design enthusiast with a background in digital illustration. Eager to collaborate on gamified learning and accessible education.",
+      "githubUrl": "",
+      "portfolioUrl": "https://dribbble.com/chloedubois",
+      "assessmentStatus": "Not Completed",
       "createdAt": "2026-08-20T13:30:00.000Z"
     },
     {
@@ -336,6 +360,9 @@
       "availabilityHours": 15,
       "timezoneOffset": -5,
       "shortBio": "FastAPI and backend enthusiast. Love creating clean, auto-documented microservices and integrating IoT telemetry data.",
+      "githubUrl": "https://github.com/tariqw",
+      "portfolioUrl": "",
+      "assessmentStatus": "Not Completed",
       "createdAt": "2026-08-20T14:00:00.000Z"
     },
     {
@@ -370,6 +397,9 @@
       "availabilityHours": 15,
       "timezoneOffset": -5,
       "shortBio": "CS sophomore who has built personal React projects. Ready to learn fast, contribute clean UI components, and pair-program.",
+      "githubUrl": "https://github.com/mayapatel",
+      "portfolioUrl": "",
+      "assessmentStatus": "Not Completed",
       "createdAt": "2026-08-20T14:30:00.000Z"
     },
     {
@@ -408,6 +438,9 @@
       "availabilityHours": 25,
       "timezoneOffset": 0,
       "shortBio": "Full-stack hacker with experience shipping production web applications. Fast at scaffolding MVPs from end to end.",
+      "githubUrl": "https://github.com/liamoconnor-dev",
+      "portfolioUrl": "https://liam.codes",
+      "assessmentStatus": "Completed",
       "createdAt": "2026-08-20T15:00:00.000Z"
     },
     {
@@ -446,6 +479,9 @@
       "availabilityHours": 20,
       "timezoneOffset": -8,
       "shortBio": "Senior design student with internship experience at a major SaaS company. Focused on complex dashboard design and interaction choreography.",
+      "githubUrl": "https://github.com/sofiatanaka",
+      "portfolioUrl": "https://sofia.framer.website",
+      "assessmentStatus": "Completed",
       "createdAt": "2026-08-20T15:30:00.000Z"
     },
     {
@@ -484,6 +520,9 @@
       "availabilityHours": 20,
       "timezoneOffset": -5,
       "shortBio": "Data scientist specializing in energy grid time-series forecasting, predictive maintenance, and spatial analytics.",
+      "githubUrl": "https://github.com/kofimensah",
+      "portfolioUrl": "",
+      "assessmentStatus": "Completed",
       "createdAt": "2026-08-20T16:00:00.000Z"
     },
     {
@@ -518,6 +557,9 @@
       "availabilityHours": 10,
       "timezoneOffset": -5,
       "shortBio": "Pre-med student with practical clinical shadowing experience. Interested in healthcare communication tools and digital patient onboarding.",
+      "githubUrl": "",
+      "portfolioUrl": "",
+      "assessmentStatus": "Not Completed",
       "createdAt": "2026-08-20T16:30:00.000Z"
     },
     {
@@ -556,7 +598,98 @@
       "availabilityHours": 20,
       "timezoneOffset": -5,
       "shortBio": "Systems programmer who loves building low-latency microservices, telemetry pipelines, and developer tooling.",
+      "githubUrl": "https://github.com/vikramsethi",
+      "portfolioUrl": "https://vikramsethi.tech",
+      "assessmentStatus": "Completed",
       "createdAt": "2026-08-20T17:00:00.000Z"
+    },
+    {
+      "id": "std_mtbxs6a4",
+      "name": "Elena Rostova (Lead)",
+      "avatar": "ER",
+      "primaryRole": "Product/Domain",
+      "experienceLevel": "Advanced",
+      "skills": [
+        {
+          "name": "Market Research",
+          "proficiency": "Advanced"
+        }
+      ],
+      "interests": [
+        "Healthcare"
+      ],
+      "availabilityHours": 20,
+      "timezoneOffset": -5,
+      "shortBio": "Product lead with clinical domain expertise.",
+      "githubUrl": "",
+      "portfolioUrl": "",
+      "assessmentStatus": "Not Completed",
+      "createdAt": "2026-08-27T19:49:27.628Z"
+    },
+    {
+      "id": "std_mtby0kov",
+      "name": "..",
+      "avatar": ".",
+      "primaryRole": "Frontend",
+      "experienceLevel": "Intermediate",
+      "skills": [
+        {
+          "name": "React",
+          "proficiency": "Intermediate"
+        },
+        {
+          "name": "TypeScript",
+          "proficiency": "Intermediate"
+        },
+        {
+          "name": "Tailwind CSS",
+          "proficiency": "Intermediate"
+        }
+      ],
+      "interests": [
+        "FinTech",
+        "Healthcare",
+        "GenAI"
+      ],
+      "availabilityHours": 20,
+      "timezoneOffset": -5,
+      "shortBio": "Passionate Frontend looking to collaborate on high-impact projects.",
+      "githubUrl": "https://github.com/agrawaleshan9-netizen",
+      "portfolioUrl": "",
+      "assessmentStatus": "Not Completed",
+      "createdAt": "2026-08-27T19:55:59.551Z"
+    },
+    {
+      "id": "std_mtby8wgk",
+      "name": "test 1",
+      "avatar": "T1",
+      "primaryRole": "Frontend",
+      "experienceLevel": "Intermediate",
+      "skills": [
+        {
+          "name": "React",
+          "proficiency": "Intermediate"
+        },
+        {
+          "name": "TypeScript",
+          "proficiency": "Intermediate"
+        },
+        {
+          "name": "CSS",
+          "proficiency": "Intermediate"
+        }
+      ],
+      "interests": [
+        "FinTech",
+        "Healthcare"
+      ],
+      "availabilityHours": 20,
+      "timezoneOffset": -5,
+      "shortBio": "",
+      "githubUrl": "",
+      "portfolioUrl": "",
+      "assessmentStatus": "Not Completed",
+      "createdAt": "2026-08-27T20:02:28.053Z"
     }
   ],
   "projects": [
